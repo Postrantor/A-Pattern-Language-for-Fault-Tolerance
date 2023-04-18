@@ -8,7 +8,7 @@ tip: translate by openai@2023-04-10 23:17:29
 
 Like any subject of study, there is a specialized language associated with fault tolerance. This chapter introduces these terms.
 
-> 与其他研究主题一样，容错领域也有一套专门的术语。本章将对这些术语进行介绍。
+> 与其他研究主题一样，容错领域也有一套专门的**术语**。本章将对这些术语进行介绍。
 
 The focus of this book is on ‘Fault Tolerance’ in general and in particular on things that can be done during the design of software to support fault tolerant operation. A system of software or hardware and software that is fault tolerant is able to operate even though some part is no longer performing correctly. Thus the focus of this book is on the software structures and mechanisms that can be designed into a system to enable its continued operation, even though a different part isn’t working correctly. This book describes practices to improve the reliability and availability of software systems. These practices are currently in use in a variety of software application domains.
 
@@ -30,7 +30,7 @@ A system **failure** occurs when the delivered service no longer complies with t
 
 Every fault tolerant system composed of software and hardware must have a specification that describes what it means for that system to operate without failure. The system’s specification defines its expected behavior, such as available 99.999% of the time. When the system doesn’t behave in the manner specified in its requirements, it has failed. The term _failure_ refers to system behavior that does not conform to the systems specification.
 
-> 每个由软件和硬件组成的容错系统都必须有一个规范来描述该系统正常运行的含义。系统的规范定义了其预期行为，例如 99.999% 的可用时间。当系统未按照其需求中规定的方式运行时，即为出现故障。术语“故障”是指系统行为不符合系统规范。
+> 每个由软件和硬件组成的容错系统都必须有一个规范来描述该系统正常运行的含义。系统的规范定义了其预期行为，例如 99.999% 的可用时间。当系统未按照其需求中规定的方式运行时，即为出现故障。**术语“故障”是指系统行为不符合系统规范。**
 
 These are examples of failures: The system crashes to a stop when it shouldn’t, the system computes an incorrect result, the system is not available for service, the system is unable to respond to user interaction. Whenever the system does the wrong thing it has failed.
 
@@ -46,7 +46,7 @@ Failures are dependant upon the requirements and the definition of agreed-upon c
 
 Failures are caused by _errors_.
 
-> 失败是由*错误*引起的。
+> **失败是由*错误*引起的。**
 
 An _error_ is the incorrect system behavior from which a failure may occur. Errors can be categorized into two types, timing or value. Errors that manifest as value errors might be incorrect discrete values or incorrect system state. Timing errors can include total non-performance (the time was infinite).
 
@@ -59,40 +59,19 @@ Some common examples of errors include:
 
 > 一些常见的错误示例包括：
 
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
 Timing or Race conditions: communicating processes get out of synchronization and a race for resources occurs.
 
+- Infinite Loops: continuous execution of a tight loop without pausing and without acknowledging the requests of others for shared resources.
+- Protocol Error: errors in the messaging stream because of non-conformance with the protocol in use. Unexpected messages sent to other parts of the system, messages sent at inappropriate times, or out of sequence.
+- Data inconsistency: Data may be different between two locations, for example memory and disk, or between different elements in a network.
+- Failure to Handle Overload conditions: the system is unable to handle the workload.
+- Wild Transfer or Wild Write: Data written to an incorrect location of memory or a transfer to an incorrect location occurs if there is a fault in the system.
+
 > 时序或竞态条件：通信进程失去同步，导致资源竞争。
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
-Infinite Loops: continuous execution of a tight loop without pausing and without acknowledging the requests of others for shared resources.
-
 > 无限循环：紧密循环的连续执行，没有暂停，也不响应他人共享资源的请求。
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
-Protocol Error: errors in the messaging stream because of non-conformance with the protocol in use. Unexpected messages sent to other parts of the system, messages sent at inappropriate times, or out of sequence.
-
 > 协议错误：由于不符合所使用协议而导致的消息流中的错误。发送给系统其他部分的意外消息、在不适当的时间发送的消息或消息顺序错误。
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
-Data inconsistency: Data may be different between two locations, for example memory and disk, or between different elements in a network.
-
 > 数据不一致：数据在两个位置之间可能存在差异，例如内存和硬盘，或者在网络中的不同元素之间。
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
-Failure to Handle Overload conditions: the system is unable to handle the workload.
-
 > 无法应对过载条件：系统无法承受工作负荷。
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
-Wild Transfer or Wild Write: Data written to an incorrect location of memory or a transfer to an incorrect location occurs if there is a fault in the system.
-
 > 疯狂传输或疯狂写入：如果系统出现故障，数据将被写入内存的错误位置，或者传输到错误的位置。
 
 Any of these example errors could be failures if they deviate from the system’s specification.
@@ -115,19 +94,13 @@ A number of causes lead to the introduction of a fault into software. These incl
 
 > 导致软件中出现故障的原因有很多，包括：
 
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
 Incorrect Requirement Specification: Sometimes the software designers and coders were told to build the wrong thing.
 
 > 需求规格不正确：有时软件设计师和编码人员被告知制作错误的东西。
 
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
-
 Incorrect Designs: Translating system requirements into a working software design is a complicated process that sometimes results in incorrect designs. The design might not be workable from a pure software standpoint, or it might not be an accurate translation of the requirements. In either case it is faulty.
 
 > 错误设计：将系统需求转化为可用软件设计是一个复杂的过程，有时可能导致错误设计。从纯软件的角度来看，设计可能是不可行的，或者可能不是对需求的准确翻译。无论哪种情况，这都是有缺陷的。
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
 
 Coding Errors: Translating the design into working code can also introduce faults into the system. The compiler/interpreter/code examination tool can catch some faults or a fault can produce syntactically correct code that just does not perform the specified task.
 
@@ -431,8 +404,6 @@ Clear performance requirements must be specified. The requirements must state ho
 Some example failures related to system performance are these:
 
 > 一些与系统性能相关的失败的例子有：
-
-<img src="./OEBPS/images/square.gif" style="vertical-align: middle;" />
 
 Too many requests for service arriving at the system can lead to failures when the system does not handle the requests in a way that conforms to the specification. For example, the overloaded system might stop working, or become saturated with reduced throughput, or might not return to acceptable levels after the load returns to normal levels. See the three examples in <a href="#c01.htm#fig1.5" id="c01.htm#fig1.5a">Figure 5</a>.
 

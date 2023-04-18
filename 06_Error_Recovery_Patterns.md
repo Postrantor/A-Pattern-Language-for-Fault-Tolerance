@@ -4,7 +4,7 @@ tip: translate by openai@2023-04-11 07:08:05
 
 # CHAPTER 6
 
-# Error Recovery Patterns
+# Error Recovery Patterns(错误恢复模式)
 
 Error detection, discussed in the previous chapter, does not ‘fix’ the error. The error is still present in the system and can still cause a failure. The patterns in this chapter address error recovery, one of the two means of processing the error and resuming error-free operation. Error recovery continues execution even with a detected error by placing the system in a state that does not contain the error. This means resuming execution at a known place, allowing it to continue processing at least as well as it did before the error was detected. The other means of error processing is error mitigation to mask the error. The next chapter discusses error mitigation.
 
